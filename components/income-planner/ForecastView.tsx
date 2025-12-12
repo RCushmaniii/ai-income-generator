@@ -3,6 +3,7 @@
 import { useIncomePlannerStore } from '@/lib/store'
 import ScenarioBuilder from './ScenarioBuilder'
 import RangeVisualization from './RangeVisualization'
+import MonthlyProjectionChart from './MonthlyProjectionChart'
 import ForecastInsights from './ForecastInsights'
 
 export default function ForecastView() {
@@ -14,6 +15,7 @@ export default function ForecastView() {
     <div className="space-y-8">
       <ScenarioBuilder />
       <RangeVisualization />
+      <MonthlyProjectionChart />
       <ForecastInsights />
     </div>
   )

@@ -3,6 +3,7 @@
 import { useIncomePlannerStore } from '@/lib/store'
 import { useTranslation } from '@/lib/i18n/translations'
 import { calculateIncome } from '@/lib/calculations'
+import { formatCurrency } from '@/lib/formatters'
 
 export default function RangeVisualization() {
   const { scenarios, taxRate, currency, language } = useIncomePlannerStore()
@@ -31,18 +32,13 @@ export default function RangeVisualization() {
   ) {
     return (
       <div className="bg-background border border-muted-strong/20 rounded-xl p-6 text-center text-muted">
-        Unable to calculate income range. Please check your inputs.
+        {t.errors.unableToCalculateRange}
       </div>
     )
   }
 
-  const formatCurrency = (value: number): string => {
-    return new Intl.NumberFormat('es-MX', {
-      style: 'currency',
-      currency: currency,
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value)
+  const formatMoney = (value: number): string => {
+    return formatCurrency({ value, currency, language, maximumFractionDigits: 0 })
   }
 
   const minIncome = pessimisticResult.annualNet
@@ -81,19 +77,19 @@ export default function RangeVisualization() {
           <div className="text-center">
             <p className="text-xs text-muted mb-1">{t.scenarios.pessimistic}</p>
             <p className="font-heading text-lg font-bold text-red-400">
-              {formatCurrency(minIncome)}
+              {formatMoney(minIncome)}
             </p>
           </div>
           <div className="text-center">
             <p className="text-xs text-muted mb-1">{t.scenarios.realistic}</p>
             <p className="font-heading text-lg font-bold text-blue-400">
-              {formatCurrency(midIncome)}
+              {formatMoney(midIncome)}
             </p>
           </div>
           <div className="text-center">
             <p className="text-xs text-muted mb-1">{t.scenarios.optimistic}</p>
             <p className="font-heading text-lg font-bold text-green-400">
-              {formatCurrency(maxIncome)}
+              {formatMoney(maxIncome)}
             </p>
           </div>
         </div>
@@ -108,7 +104,7 @@ export default function RangeVisualization() {
         <div className="bg-accent/5 border border-accent/20 rounded-lg p-4 text-center">
           <p className="text-xs text-muted mb-1">{t.range.range}</p>
           <p className="font-heading text-lg font-bold">
-            {formatCurrency(maxIncome - minIncome)}
+            {formatMoney(maxIncome - minIncome)}
           </p>
         </div>
       </div>

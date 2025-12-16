@@ -2,13 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Highlight.js theme override for docs */
+@import 'highlight.js/styles/github-dark.css';
+
 :root {
   --background: #000000;
   --foreground: #ffffff;
+  --muted: #aaaaaa;
+  --muted-strong: #888888;
+  --accent: #ff6a3d;
+  --chart-realistic: #3b82f6;
+  --chart-optimistic: #22c55e;
+}
+
+.light {
+  --background: #ffffff;
+  --foreground: #000000;
+  --muted: #666666;
+  --muted-strong: #444444;
+  --accent: #ff6a3d;
+  --chart-realistic: #3b82f6;
+  --chart-optimistic: #22c55e;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-source-serif), serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }

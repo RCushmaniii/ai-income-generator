@@ -2,6 +2,7 @@ import Hero from '@/components/income-planner/Hero'
 import ViewToggle from '@/components/income-planner/ViewToggle'
 import SnapshotView from '@/components/income-planner/SnapshotView'
 import ForecastView from '@/components/income-planner/ForecastView'
+import CaseStudyPanel from '@/components/income-planner/CaseStudyPanel'
 
 export const metadata = {
   title: 'Income Planner | CushLabs.ai',
@@ -17,6 +18,9 @@ export default function IncomePlannerPage() {
         <ViewToggle />
         <SnapshotView />
         <ForecastView />
+        <div className="mt-10">
+          <CaseStudyPanel />
+        </div>
       </div>
     </div>
   )

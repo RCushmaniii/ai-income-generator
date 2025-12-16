@@ -2,10 +2,14 @@
 
 import { useIncomePlannerStore } from '@/lib/store'
 import { calculateIncome } from '@/lib/calculations'
+import { useTranslation } from '@/lib/i18n/translations'
+import { formatCurrency } from '@/lib/formatters'
 
 export default function SummaryCards() {
-  const { hourlyRate, hoursPerWeek, vacationWeeks, taxRate, currency } =
+  const { hourlyRate, hoursPerWeek, vacationWeeks, taxRate, currency, language } =
     useIncomePlannerStore()
+
+  const t = useTranslation(language)
 
   const result = calculateIncome({
     hourlyRate,
@@ -18,42 +22,37 @@ export default function SummaryCards() {
     return (
       <div>
         <h2 className="font-heading text-2xl font-bold mb-4">
-          <span className="text-accent">Your</span> Income
+          {t.summary.title}
         </h2>
         <div className="bg-background border border-muted-strong/20 rounded-xl p-6 text-center text-muted">
-          Unable to calculate income. Please check your inputs.
+          {t.errors.unableToCalculateIncome}
         </div>
       </div>
     )
   }
 
-  const formatCurrency = (value: number): string => {
-    return new Intl.NumberFormat('es-MX', {
-      style: 'currency',
-      currency: currency,
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value)
+  const formatMoney = (value: number): string => {
+    return formatCurrency({ value, currency, language, maximumFractionDigits: 0 })
   }
 
   const summaryData = [
     {
-      label: 'Per Day',
+      label: t.summary.perDay,
       gross: result.dailyGross,
       net: result.dailyNet,
     },
     {
-      label: 'Per Week',
+      label: t.summary.perWeek,
       gross: result.weeklyGross,
       net: result.weeklyNet,
     },
     {
-      label: 'Per Month',
+      label: t.summary.perMonth,
       gross: result.monthlyGross,
       net: result.monthlyNet,
     },
     {
-      label: 'Per Year',
+      label: t.summary.perYear,
       gross: result.annualGross,
       net: result.annualNet,
     },
@@ -72,10 +71,12 @@ export default function SummaryCards() {
       ? 0
       : rateIncrease.annualNet - result.annualNet
 
+  const showWhatIf = false
+
   return (
     <div>
       <h2 className="font-heading text-2xl font-bold mb-4">
-        <span className="text-accent">Your</span> Income
+        {t.summary.title}
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -90,16 +91,16 @@ export default function SummaryCards() {
 
             <div className="space-y-2">
               <div>
-                <p className="text-xs text-muted mb-1">Gross</p>
+                <p className="text-xs text-muted mb-1">{t.summary.gross}</p>
                 <p className="font-heading text-2xl font-bold">
-                  {formatCurrency(item.gross)}
+                  {formatMoney(item.gross)}
                 </p>
               </div>
 
               <div>
-                <p className="text-xs text-muted mb-1">Net (after tax)</p>
+                <p className="text-xs text-muted mb-1">{t.summary.netAfterTax}</p>
                 <p className="font-heading text-2xl font-bold text-accent">
-                  {formatCurrency(item.net)}
+                  {formatMoney(item.net)}
                 </p>
               </div>
             </div>
@@ -108,17 +109,19 @@ export default function SummaryCards() {
       </div>
 
       {/* What-if suggestion */}
-      <div className="mt-6 bg-accent/5 border border-accent/20 rounded-lg p-4">
-        <p className="text-sm text-muted">
-          💡{' '}
-          <span className="font-medium text-foreground">What if:</span> If you
-          increased your hourly rate by 10%, you&apos;d earn{' '}
-          <span className="text-accent font-semibold">
-            +{formatCurrency(whatIfIncrease)}
-          </span>{' '}
-          per year.
-        </p>
-      </div>
+      {showWhatIf && (
+        <div className="mt-6 bg-accent/5 border border-accent/20 rounded-lg p-4">
+          <p className="text-sm text-muted">
+            💡{' '}
+            <span className="font-medium text-foreground">{t.summary.whatIf}</span>{' '}
+            {t.summary.whatIfText}{' '}
+            <span className="text-accent font-semibold">
+              +{formatMoney(whatIfIncrease)}
+            </span>{' '}
+            {t.summary.whatIfSuffix}
+          </p>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { Zap, Target, Handshake } from 'lucide-react'
 import { useIncomePlannerStore } from '@/lib/store'
 import { useTranslation } from '@/lib/i18n/translations'
 
@@ -47,7 +48,9 @@ export default function Home() {
         {/* Features grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           <div className="bg-background border border-muted-strong/20 rounded-xl p-6 hover:border-accent/30 transition-colors">
-            <div className="text-accent text-3xl mb-3">⚡</div>
+            <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
+              <Zap className="h-5 w-5" />
+            </div>
             <h3 className="font-heading text-lg font-bold mb-2">
               {t.home.features.fast.title}
             </h3>
@@ -57,7 +60,9 @@ export default function Home() {
           </div>
 
           <div className="bg-background border border-muted-strong/20 rounded-xl p-6 hover:border-accent/30 transition-colors">
-            <div className="text-accent text-3xl mb-3">🎯</div>
+            <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
+              <Target className="h-5 w-5" />
+            </div>
             <h3 className="font-heading text-lg font-bold mb-2">
               {t.home.features.realUse.title}
             </h3>
@@ -67,7 +72,9 @@ export default function Home() {
           </div>
 
           <div className="bg-background border border-muted-strong/20 rounded-xl p-6 hover:border-accent/30 transition-colors">
-            <div className="text-accent text-3xl mb-3">🤝</div>
+            <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
+              <Handshake className="h-5 w-5" />
+            </div>
             <h3 className="font-heading text-lg font-bold mb-2">
               {t.home.features.personal.title}
             </h3>

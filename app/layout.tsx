@@ -3,6 +3,7 @@ import { Space_Grotesk, Source_Serif_4 } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -27,14 +28,50 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const themeInitScript = `
+(function(){
+  try {
+    var theme = null;
+
+    var raw = localStorage.getItem('income-planner-storage');
+    if (raw) {
+      var data = JSON.parse(raw);
+      theme = data && data.state && data.state.theme;
+    }
+
+    if (theme !== 'light' && theme !== 'dark') {
+      if (window.matchMedia && typeof window.matchMedia === 'function') {
+        theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      } else {
+        theme = 'dark';
+      }
+    }
+
+    var root = document.documentElement;
+    var isLight = theme === 'light';
+    root.classList.toggle('light', isLight);
+    root.classList.toggle('dark', !isLight);
+    root.style.colorScheme = isLight ? 'light' : 'dark';
+  } catch (e) {}
+})();
+  `.trim()
+
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${sourceSerif.variable}`}>
-      <body>
+    <html
+      lang="en"
+      className={`${spaceGrotesk.variable} ${sourceSerif.variable} dark`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="min-h-screen flex flex-col">
         <Providers>
           <Header />
-          <main className="min-h-screen">
+          <main className="flex-1">
             {children}
           </main>
+          <Footer />
         </Providers>
       </body>
     </html>

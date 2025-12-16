@@ -1,3 +1,9 @@
+---
+title: Product Requirements Document (PRD)
+description: Product requirements and implementation notes for CushLabs Income Planner.
+order: 1
+---
+
 # CushLabs Income Planner - Product Requirements Document
 
 **Version:** 1.0  
@@ -113,7 +119,7 @@ dailyNet = weeklyNet / 5
 - `InputPanel.tsx` - User input controls
 - `SummaryCards.tsx` - Income display
 - `Hero.tsx` - Page header
-- `ChartPlaceholder.tsx` - Future chart area
+- `RateBenchmarkPanel.tsx` - Static example market benchmark (no AI calls)
 
 ### 3.2 Forecast Mode (Phase 3B ✅)
 
@@ -316,7 +322,7 @@ ai-income-generator/
 │   └── future-features.md      # Roadmap
 ├── .windsurf/rules/            # Coding standards
 ├── LICENSE                     # Educational license
-├── PREDEPLOY_AUDIT.md          # Deployment checklist
+├── docs/PREDEPLOY_AUDIT.md     # Deployment checklist
 └── PRD.md                      # This document
 ```
 
@@ -342,11 +348,11 @@ ai-income-generator/
 
 ### 6.1 Data Handling
 
-**No Backend:**
+**Backend footprint (minimal):**
 
-- All calculations client-side
-- No data sent to external servers
+- Core income calculations run client-side
 - No user accounts or authentication
+- An optional server route (`/api/fx`) can be enabled for live FX quotes if `EXCHANGE_RATE_API_KEY` is configured
 
 **localStorage Only:**
 
@@ -375,7 +381,8 @@ ai-income-generator/
 
 - No analytics (yet)
 - No cookies
-- No external requests
+- No external requests required for core functionality
+- Optional FX requests only when currency conversion is enabled and an API key is configured
 - localStorage only for app state
 
 ---

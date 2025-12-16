@@ -1,3 +1,10 @@
+---
+title: Pre-Deploy Audit Checklist
+description: Deployment and quality checklist for CushLabs Income Planner.
+category: Operations
+order: 10
+---
+
 # Pre-Deploy Audit Checklist - CushLabs Income Planner
 
 **Last Updated:** December 11, 2025  
@@ -42,7 +49,9 @@
 - [ ] Currency toggle works (MXN/USD)
 - [ ] Language toggle works (EN/ES)
 - [ ] Summary cards display correct calculations
-- [ ] What-if suggestion calculates correctly
+- [ ] Rate Benchmark panel renders (static example data)
+- [ ] Rate Benchmark "You" marker updates with inputs
+- [ ] Theme toggle affects all Snapshot UI (no hardcoded colors)
 
 ### Forecast Mode
 
@@ -99,7 +108,7 @@
 - [ ] CushLabs branding dot present
 - [ ] Space Grotesk font for headings
 - [ ] Source Serif 4 font for body
-- [ ] Dark theme (#000000 background)
+- [ ] Theme system works (system preference default; manual toggle persists)
 
 ### User Feedback
 
@@ -284,7 +293,7 @@
 
 ## Known Issues / Technical Debt
 
-- [ ] Phase 4 localization not fully implemented
+- [ ] Rate Benchmark is static example data (planned future enhancement)
 - [ ] No unit tests yet (future enhancement)
 - [ ] No E2E tests yet (future enhancement)
 - [ ] Chart could use more customization options
@@ -295,7 +304,7 @@
 ## Sign-Off
 
 **Developer:** Robert Cushman  
-**Date:** ******\_******  
+**Date:** **\*\***\_**\*\***  
 **Status:** ⬜ Ready for Deploy | ⬜ Needs Work
 
 **Notes:**
@@ -323,8 +332,8 @@ npm run format
 # Start dev server
 npm run dev
 
-# Production build
-npm run start
+# Start production server (after a successful build)
+npm start
 ```
 
 ---

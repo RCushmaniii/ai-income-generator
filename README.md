@@ -1,3 +1,9 @@
+---
+title: CushLabs Income Planner
+description: A bilingual income planning tool for freelancers and consultants.
+order: 0
+---
+
 # CushLabs Income Planner
 
 **A beautiful, bilingual income planning tool for freelancers and consultants.**
@@ -9,10 +15,12 @@ Built with Next.js, TypeScript, and Tailwind CSS by [CushLabs.ai](https://cushla
 ## ✨ Features
 
 - **Snapshot Mode** - Single-scenario calculator with real-time income calculations
+- **Rate Benchmark (Example)** - Snapshot includes a static example market benchmark panel (no AI calls)
 - **Forecast Mode** - Three-scenario planning (Pessimistic/Realistic/Optimistic)
 - **Monthly Projections** - Interactive charts with seasonal pattern modeling
 - **Full Localization** - Complete EN/ES translation system
 - **State Persistence** - localStorage saves your scenarios automatically
+- **Theme Switching** - Global light/dark theme with system preference default
 - **Responsive Design** - Works beautifully on mobile and desktop
 
 ---
@@ -42,6 +50,8 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+If port 3000 is already in use, Next.js will automatically try the next available port.
 
 ---
 
@@ -86,7 +96,6 @@ ai-income-generator/
 │   ├── store.ts           # Zustand state management
 │   └── i18n/              # Translations (EN/ES)
 ├── docs/                   # Documentation
-│   ├── PRD.md             # Product requirements (moved to root)
 │   ├── PREDEPLOY_AUDIT.md # Deployment checklist
 │   ├── brand.md           # Brand guidelines
 │   ├── design.md          # Design system
@@ -127,9 +136,11 @@ See `.windsurf/rules/` for detailed coding standards including:
 ### Colors
 
 ```css
---background: #000000 /* Black */ --foreground: #ffffff /* White */
-  --accent: #ff6a3d /* Orange */ --muted: #aaaaaa /* Light gray */
-  --muted-strong: #888888 /* Medium gray */;
+--background: #000000; /* Dark */
+--foreground: #ffffff;
+--accent: #ff6a3d;
+--muted: #aaaaaa;
+--muted-strong: #888888;
 ```
 
 ### Typography
@@ -208,6 +219,10 @@ Alternative platforms: Netlify, AWS Amplify, Cloudflare Pages
 ### Environment Variables
 
 See `.env.sample` for configuration options.
+
+Notes:
+
+- `EXCHANGE_RATE_API_KEY` is optional. Without it, the app can still run; currency formatting still works, but live FX conversion may be unavailable.
 
 ---
 

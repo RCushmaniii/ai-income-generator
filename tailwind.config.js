@@ -4,14 +4,15 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        background: '#000000',
-        foreground: '#FFFFFF',
-        accent: '#FF6A3D',
-        muted: '#AAAAAA',
-        'muted-strong': '#888888',
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        accent: 'var(--accent)',
+        muted: 'var(--muted)',
+        'muted-strong': 'var(--muted-strong)',
       },
       fontFamily: {
         heading: ['var(--font-space-grotesk)', 'sans-serif'],

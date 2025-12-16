@@ -3,7 +3,7 @@
 import { useIncomePlannerStore } from '@/lib/store'
 import InputPanel from './InputPanel'
 import SummaryCards from './SummaryCards'
-import ChartPlaceholder from './ChartPlaceholder'
+import RateBenchmarkPanel from './RateBenchmarkPanel'
 
 export default function SnapshotView() {
   const { viewMode } = useIncomePlannerStore()
@@ -18,7 +18,7 @@ export default function SnapshotView() {
       
       <div className="space-y-8">
         <SummaryCards />
-        <ChartPlaceholder />
+        <RateBenchmarkPanel />
       </div>
     </div>
   )

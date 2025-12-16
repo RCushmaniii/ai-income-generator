@@ -2,6 +2,7 @@
 
 import { useIncomePlannerStore } from '@/lib/store'
 import { useTranslation } from '@/lib/i18n/translations'
+import { fetchFxQuote } from '@/lib/fx'
 import toast from 'react-hot-toast'
 
 export default function InputPanel() {
@@ -10,21 +11,28 @@ export default function InputPanel() {
     hoursPerWeek,
     vacationWeeks,
     taxRate,
+    targetAnnualNet,
     currency,
     language,
+    mxnToUsdRate,
+    mxnToUsdRateUpdatedAt,
+    fxStatus,
     setHourlyRate,
     setHoursPerWeek,
     setVacationWeeks,
     setTaxRate,
+    setTargetAnnualNet,
     setCurrency,
+    switchCurrency,
     setLanguage,
+    setFxStatus,
+    setMxnToUsdRate,
   } = useIncomePlannerStore()
   const t = useTranslation(language)
 
   const handleInputChange = (
     value: string,
-    setter: (val: number) => void,
-    fieldName: string
+    setter: (val: number) => void
   ) => {
     const num = parseFloat(value)
     if (!isNaN(num)) {
@@ -32,8 +40,51 @@ export default function InputPanel() {
     }
   }
 
-  const handleCurrencyChange = (newCurrency: 'MXN' | 'USD') => {
-    setCurrency(newCurrency)
+  const handleTargetChange = (value: string) => {
+    const trimmed = value.trim()
+    if (trimmed.length === 0) {
+      setTargetAnnualNet(null)
+      return
+    }
+
+    const num = parseFloat(trimmed)
+    if (!isNaN(num)) {
+      setTargetAnnualNet(num)
+    }
+  }
+
+  const ensureMxnToUsdRate = async (): Promise<number | null> => {
+    if (typeof mxnToUsdRate === 'number' && Number.isFinite(mxnToUsdRate) && mxnToUsdRate > 0) {
+      return mxnToUsdRate
+    }
+
+    setFxStatus('loading')
+    try {
+      const quote = await fetchFxQuote({ base: 'MXN', target: 'USD' })
+      const updatedAt = typeof quote.timeLastUpdateUnix === 'number'
+        ? quote.timeLastUpdateUnix * 1000
+        : Date.now()
+      setMxnToUsdRate(quote.rate, updatedAt)
+      setFxStatus('ready')
+      return quote.rate
+    } catch (err) {
+      setFxStatus('error')
+      toast.error(t.toast.fxFetchError)
+      return null
+    }
+  }
+
+  const handleCurrencyChange = async (newCurrency: 'MXN' | 'USD') => {
+    if (newCurrency === currency) return
+
+    const rate = await ensureMxnToUsdRate()
+
+    if (rate) {
+      switchCurrency(newCurrency, rate)
+    } else {
+      setCurrency(newCurrency)
+    }
+
     toast.success(`${t.toast.currencyChanged} ${newCurrency}`)
   }
 
@@ -60,7 +111,7 @@ export default function InputPanel() {
               type="number"
               id="hourlyRate"
               value={hourlyRate}
-              onChange={(e) => handleInputChange(e.target.value, setHourlyRate, 'hourlyRate')}
+              onChange={(e) => handleInputChange(e.target.value, setHourlyRate)}
               className="w-full bg-background border border-muted-strong/30 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
               placeholder="500"
             />
@@ -80,7 +131,7 @@ export default function InputPanel() {
             type="number"
             id="hoursPerWeek"
             value={hoursPerWeek}
-            onChange={(e) => handleInputChange(e.target.value, setHoursPerWeek, 'hoursPerWeek')}
+            onChange={(e) => handleInputChange(e.target.value, setHoursPerWeek)}
             className="w-full bg-background border border-muted-strong/30 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
             placeholder="40"
           />
@@ -96,7 +147,7 @@ export default function InputPanel() {
             type="number"
             id="vacationWeeks"
             value={vacationWeeks}
-            onChange={(e) => handleInputChange(e.target.value, setVacationWeeks, 'vacationWeeks')}
+            onChange={(e) => handleInputChange(e.target.value, setVacationWeeks)}
             className="w-full bg-background border border-muted-strong/30 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
             placeholder="2"
           />
@@ -112,11 +163,32 @@ export default function InputPanel() {
             type="number"
             id="taxRate"
             value={taxRate}
-            onChange={(e) => handleInputChange(e.target.value, setTaxRate, 'taxRate')}
+            onChange={(e) => handleInputChange(e.target.value, setTaxRate)}
             className="w-full bg-background border border-muted-strong/30 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
             placeholder="25"
           />
           <p className="text-xs text-muted-strong mt-1">{t.inputs.rangeLabel}: 0 - 50%</p>
+        </div>
+
+        {/* Target Annual Net */}
+        <div>
+          <label htmlFor="targetAnnualNet" className="block text-sm font-medium mb-2">
+            {t.inputs.targetAnnualNet} <span className="text-muted-strong">{t.inputs.targetOptional}</span>
+          </label>
+          <div className="relative">
+            <input
+              type="number"
+              id="targetAnnualNet"
+              value={targetAnnualNet ?? ''}
+              onChange={(e) => handleTargetChange(e.target.value)}
+              className="w-full bg-background border border-muted-strong/30 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+              placeholder="100000"
+            />
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted text-sm">
+              {currency}
+            </span>
+          </div>
+          <p className="text-xs text-muted-strong mt-1">{t.inputs.targetPlaceholder}</p>
         </div>
 
         {/* Currency Toggle */}

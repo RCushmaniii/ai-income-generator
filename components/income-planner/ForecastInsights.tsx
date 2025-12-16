@@ -3,6 +3,7 @@
 import { useIncomePlannerStore } from '@/lib/store'
 import { useTranslation } from '@/lib/i18n/translations'
 import { calculateIncome } from '@/lib/calculations'
+import { formatCurrency } from '@/lib/formatters'
 
 export default function ForecastInsights() {
   const { scenarios, taxRate, currency, language } = useIncomePlannerStore()
@@ -32,13 +33,8 @@ export default function ForecastInsights() {
     return null
   }
 
-  const formatCurrency = (value: number): string => {
-    return new Intl.NumberFormat('es-MX', {
-      style: 'currency',
-      currency: currency,
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value)
+  const formatMoney = (value: number): string => {
+    return formatCurrency({ value, currency, language, maximumFractionDigits: 0 })
   }
 
   // Generate insights
@@ -47,7 +43,7 @@ export default function ForecastInsights() {
   // 1. Realistic annual income
   insights.push({
     icon: '💡',
-    text: `${t.insights.realisticIncome} ${formatCurrency(realisticResult.annualNet)}`,
+    text: `${t.insights.realisticIncome} ${formatMoney(realisticResult.annualNet)}`,
   })
 
   // 2. Income range
@@ -55,7 +51,7 @@ export default function ForecastInsights() {
   const spread = (optimisticResult.annualNet / pessimisticResult.annualNet).toFixed(1)
   insights.push({
     icon: '📊',
-    text: `${t.insights.incomeRange} ${formatCurrency(pessimisticResult.annualNet)} - ${formatCurrency(optimisticResult.annualNet)} (${spread}x ${t.insights.spread})`,
+    text: `${t.insights.incomeRange} ${formatMoney(pessimisticResult.annualNet)} - ${formatMoney(optimisticResult.annualNet)} (${spread}x ${t.insights.spread})`,
   })
 
   // 3. Capacity warning for optimistic
@@ -69,14 +65,14 @@ export default function ForecastInsights() {
   // 4. Pessimistic floor
   insights.push({
     icon: '✅',
-    text: t.insights.pessimisticFloor.replace('{amount}', formatCurrency(pessimisticResult.annualNet)),
+    text: t.insights.pessimisticFloor.replace('{amount}', formatMoney(pessimisticResult.annualNet)),
   })
 
   // 5. Rate impact
   const rateIncrease = realisticResult.annualNet * 0.1
   insights.push({
     icon: '💰',
-    text: t.insights.rateIncrease.replace('{amount}', formatCurrency(rateIncrease)),
+    text: t.insights.rateIncrease.replace('{amount}', formatMoney(rateIncrease)),
   })
 
   return (

@@ -1,3 +1,10 @@
+---
+title: Brand Strategy & Copy Guide
+description: Brand positioning, voice, and copy guidelines for CushLabs.ai.
+category: Brand
+order: 1
+---
+
 # CushLabs.ai — Brand Strategy & Copy Guide
 
 A complete brand strategy document for CushLabs as a premium solo AI consulting studio.

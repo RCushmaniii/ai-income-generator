@@ -4,7 +4,32 @@ export interface Translations {
   // Navigation & Header
   header: {
     title: string
+    home: string
     incomePlanner: string
+    about: string
+  }
+
+  footer: {
+    docs: string
+    incomePlanner: string
+    about: string
+    github: string
+    prd: string
+    predeployAudit: string
+    copyright: string
+  }
+
+  about: {
+    title: string
+    subtitle: string
+    whatIsTitle: string
+    whatIsBody: string
+    whoIsForTitle: string
+    whoIsForBody: string
+    howToUseTitle: string
+    howToUseBody: string
+    privacyTitle: string
+    privacyBody: string
   }
 
   // Home Page
@@ -70,6 +95,7 @@ export interface Translations {
     netAfterTax: string
     whatIf: string
     whatIfText: string
+    whatIfSuffix: string
   }
 
   // Scenario Builder
@@ -116,14 +142,80 @@ export interface Translations {
   // Toast Messages
   toast: {
     currencyChanged: string
+    fxFetchError: string
     languageChanged: string
     languageChangedEs: string
+  }
+
+  errors: {
+    unableToCalculateIncome: string
+    unableToCalculateRange: string
+    unableToGenerateChartData: string
+  }
+
+  chartLegend: {
+    pessimistic: string
+    realistic: string
+    optimistic: string
+    rangeBand: string
+    target: string
+  }
+
+  caseStudy: {
+    title: string
+    builtBy: string
+    sections: {
+      problem: {
+        title: string
+        body: string
+      }
+      design: {
+        title: string
+        body: string
+      }
+      stack: {
+        title: string
+        body: string
+      }
+      privacy: {
+        title: string
+        body: string
+      }
+    }
   }
 
   // Chart Placeholder
   chartPlaceholder: {
     title: string
     comingSoon: string
+  }
+
+  rateBenchmark: {
+    title: string
+    subtitle: string
+    monthlyRangesTitle: string
+    you: string
+    youMarker: string
+    perMonthNet: string
+    disclaimer: string
+    tutoringTitle: string
+    tutoringPrivateLessons: string
+    tutoringNote: string
+    fxUnavailable: string
+    perHour: string
+    factorsTitle: string
+    factors: {
+      experience: string
+      schoolType: string
+      hours: string
+    }
+    institutions: {
+      international: string
+      universities: string
+      private: string
+      public: string
+      language: string
+    }
   }
 
   // Common
@@ -138,7 +230,36 @@ export const translations: Record<Language, Translations> = {
   en: {
     header: {
       title: 'CushLabs.ai',
+      home: 'Home',
       incomePlanner: 'Income Planner',
+      about: 'About',
+    },
+
+    footer: {
+      docs: 'Docs',
+      incomePlanner: 'Income Planner',
+      about: 'About',
+      github: 'GitHub',
+      prd: 'PRD',
+      predeployAudit: 'Predeploy Audit',
+      copyright: '© {year} CushLabs.ai. All rights reserved.',
+    },
+
+    about: {
+      title: 'About',
+      subtitle: 'A quick guide to what this planner does and how to use it.',
+      whatIsTitle: 'What is this?',
+      whatIsBody:
+        'This is a simple income planning tool for freelancers and consultants. It helps you translate your hourly rate, billable hours, vacation, and taxes into clear take-home numbers.',
+      whoIsForTitle: 'Who is it for?',
+      whoIsForBody:
+        'Freelancers, solo consultants, and small business owners who bill for time and want clarity on realistic income outcomes.',
+      howToUseTitle: 'How do I use it?',
+      howToUseBody:
+        'Use Snapshot for a single plan. Use Forecast to compare pessimistic, realistic, and optimistic scenarios so you can see your income floor, upside, and volatility.',
+      privacyTitle: 'Privacy & storage',
+      privacyBody:
+        'Your inputs are stored locally in your browser for convenience. No accounts required. No personal data is sent anywhere by default.',
     },
 
     home: {
@@ -205,6 +326,7 @@ export const translations: Record<Language, Translations> = {
       whatIf: 'What if:',
       whatIfText:
         'If you increased your hourly rate by 10%, you would earn',
+      whatIfSuffix: 'per year.',
     },
 
     scenarios: {
@@ -252,13 +374,80 @@ export const translations: Record<Language, Translations> = {
 
     toast: {
       currencyChanged: 'Currency set to',
+      fxFetchError: 'Unable to fetch exchange rate. Showing formatting only.',
       languageChanged: 'Language set to English',
-      languageChangedEs: 'Idioma cambiado a español',
+      languageChangedEs: 'Language set to Spanish',
+    },
+
+    errors: {
+      unableToCalculateIncome: 'Unable to calculate income. Please check your inputs.',
+      unableToCalculateRange: 'Unable to calculate income range. Please check your inputs.',
+      unableToGenerateChartData: 'Unable to generate chart data. Please check your inputs.',
+    },
+
+    chartLegend: {
+      pessimistic: 'Pessimistic',
+      realistic: 'Realistic',
+      optimistic: 'Optimistic',
+      rangeBand: 'Range',
+      target: 'Target',
+    },
+
+    caseStudy: {
+      title: 'Built & Designed',
+      builtBy: 'Built by Robert Cushman (CushLabs.ai) as a real-use planning tool and flagship portfolio project.',
+      sections: {
+        problem: {
+          title: 'Problem',
+          body: 'Freelancers and consultants often know their hourly rate, but not what that becomes after taxes, time off, and realistic weekly capacity. This tool turns inputs into clear income outcomes and scenarios.',
+        },
+        design: {
+          title: 'Design choices',
+          body: 'Fast, keyboard-friendly inputs, instant feedback, and a forecasting mode that compares downside, baseline, and upside. Charts are designed to communicate range + trend (not just raw numbers).',
+        },
+        stack: {
+          title: 'Stack',
+          body: 'Next.js (App Router), TypeScript, Tailwind CSS, Zustand persistence, Recharts, and an EN/ES translation layer.',
+        },
+        privacy: {
+          title: 'Privacy',
+          body: 'Inputs are stored locally in your browser for convenience. No accounts required and no personal data is sent anywhere by default.',
+        },
+      },
     },
 
     chartPlaceholder: {
       title: 'Income Chart',
       comingSoon: 'Chart visualization coming soon',
+    },
+
+    rateBenchmark: {
+      title: 'Rate Benchmark',
+      subtitle: 'Example market ranges for English teachers in Guadalajara, Mexico (monthly).',
+      monthlyRangesTitle: 'Salary ranges by institution type',
+      you: 'You:',
+      youMarker: 'Your estimated monthly net',
+      perMonthNet: 'net/month',
+      disclaimer:
+        'These are example estimates for UX testing only. In a future version, this panel can be powered by live research and citations.',
+      tutoringTitle: 'Private tutoring',
+      tutoringPrivateLessons: 'Private lessons often range around',
+      tutoringNote: 'Hourly tutoring can materially change monthly totals when combined with a school role.',
+      fxUnavailable: 'FX unavailable — showing MXN values only.',
+      perHour: 'per hour',
+      factorsTitle: 'Factors that move the number',
+      factors: {
+        experience: 'Experience & certifications (TEFL/CELTA/TESOL) can raise pay significantly.',
+        schoolType: 'International schools and universities tend to pay more than language centers.',
+        hours: 'Teaching hours and private lessons can increase monthly income.',
+      },
+      institutions: {
+        international: 'International Schools',
+        universities: 'Universities',
+        private: 'Private Schools',
+        public: 'Public/Government Schools',
+        language: 'Private Language Schools',
+      },
     },
 
     common: {
@@ -271,7 +460,37 @@ export const translations: Record<Language, Translations> = {
   es: {
     header: {
       title: 'CushLabs.ai',
+      home: 'Inicio',
       incomePlanner: 'Planificador de Ingresos',
+      about: 'Acerca de',
+    },
+
+    footer: {
+      docs: 'Documentación',
+      incomePlanner: 'Planificador',
+      about: 'Acerca de',
+      github: 'GitHub',
+      prd: 'PRD',
+      predeployAudit: 'Auditoría Predeploy',
+      copyright: '© {year} CushLabs.ai. Todos los derechos reservados.',
+    },
+
+    about: {
+      title: 'Acerca de',
+      subtitle:
+        'Una guía rápida sobre lo que hace este planificador y cómo usarlo.',
+      whatIsTitle: '¿Qué es esto?',
+      whatIsBody:
+        'Es una herramienta simple para planificar ingresos para freelancers y consultores. Te ayuda a convertir tu tarifa por hora, horas facturables, vacaciones e impuestos en números claros de ingreso neto.',
+      whoIsForTitle: '¿Para quién es?',
+      whoIsForBody:
+        'Freelancers, consultores independientes y dueños de pequeños negocios que cobran por tiempo y quieren claridad sobre resultados realistas.',
+      howToUseTitle: '¿Cómo lo uso?',
+      howToUseBody:
+        'Usa Vista Rápida para un solo plan. Usa Pronóstico para comparar escenarios pesimista, realista y optimista y ver tu piso de ingresos, potencial y volatilidad.',
+      privacyTitle: 'Privacidad y almacenamiento',
+      privacyBody:
+        'Tus datos se guardan localmente en tu navegador por conveniencia. No se requiere cuenta. Por defecto no se envían datos personales a ningún lugar.',
     },
 
     home: {
@@ -339,6 +558,7 @@ export const translations: Record<Language, Translations> = {
       whatIf: '¿Qué pasaría si:',
       whatIfText:
         'Si aumentaras tu tarifa por hora en 10%, ganarías',
+      whatIfSuffix: 'al año.',
     },
 
     scenarios: {
@@ -386,13 +606,80 @@ export const translations: Record<Language, Translations> = {
 
     toast: {
       currencyChanged: 'Moneda establecida en',
-      languageChanged: 'Language set to English',
+      fxFetchError: 'No se pudo obtener el tipo de cambio. Solo se mostrará el formato.',
+      languageChanged: 'Idioma cambiado a inglés',
       languageChangedEs: 'Idioma cambiado a español',
+    },
+
+    errors: {
+      unableToCalculateIncome: 'No se pudo calcular el ingreso. Por favor revisa tus datos.',
+      unableToCalculateRange: 'No se pudo calcular el rango de ingresos. Por favor revisa tus datos.',
+      unableToGenerateChartData: 'No se pudieron generar los datos del gráfico. Por favor revisa tus datos.',
+    },
+
+    chartLegend: {
+      pessimistic: 'Pesimista',
+      realistic: 'Realista',
+      optimistic: 'Optimista',
+      rangeBand: 'Rango',
+      target: 'Objetivo',
+    },
+
+    caseStudy: {
+      title: 'Construido y Diseñado',
+      builtBy: 'Construido por Robert Cushman (CushLabs.ai) como una herramienta de planeación para uso real y proyecto principal de portafolio.',
+      sections: {
+        problem: {
+          title: 'Problema',
+          body: 'Freelancers y consultores suelen conocer su tarifa por hora, pero no cómo se traduce después de impuestos, vacaciones y una capacidad semanal realista. Esta herramienta convierte tus datos en resultados claros y escenarios.',
+        },
+        design: {
+          title: 'Decisiones de diseño',
+          body: 'Datos rápidos y amigables para teclado, retroalimentación instantánea y un modo de pronóstico que compara el peor caso, el caso base y el mejor caso. Los gráficos están pensados para comunicar rango + tendencia.',
+        },
+        stack: {
+          title: 'Tecnología',
+          body: 'Next.js (App Router), TypeScript, Tailwind CSS, persistencia con Zustand, Recharts y un sistema de traducción EN/ES.',
+        },
+        privacy: {
+          title: 'Privacidad',
+          body: 'Tus datos se guardan localmente en tu navegador por conveniencia. No se requiere cuenta y por defecto no se envían datos personales a ningún lugar.',
+        },
+      },
     },
 
     chartPlaceholder: {
       title: 'Gráfico de Ingresos',
       comingSoon: 'Visualización de gráfico próximamente',
+    },
+
+    rateBenchmark: {
+      title: 'Referencia de Tarifas',
+      subtitle: 'Rangos de ejemplo para maestros de inglés en Guadalajara, México (mensual).',
+      monthlyRangesTitle: 'Rangos salariales por tipo de institución',
+      you: 'Tú:',
+      youMarker: 'Tu neto mensual estimado',
+      perMonthNet: 'neto/mes',
+      disclaimer:
+        'Estas cifras son estimaciones de ejemplo solo para probar la interfaz. En una versión futura, este panel puede usar investigación en vivo con citas.',
+      tutoringTitle: 'Clases particulares',
+      tutoringPrivateLessons: 'Las clases privadas suelen estar alrededor de',
+      tutoringNote: 'Las clases por hora pueden cambiar mucho el total mensual si se combinan con una escuela.',
+      fxUnavailable: 'Tipo de cambio no disponible — mostrando solo valores en MXN.',
+      perHour: 'por hora',
+      factorsTitle: 'Factores que cambian el resultado',
+      factors: {
+        experience: 'Experiencia y certificaciones (TEFL/CELTA/TESOL) pueden aumentar el pago.',
+        schoolType: 'Escuelas internacionales y universidades suelen pagar más que centros de idiomas.',
+        hours: 'Más horas y clases privadas pueden aumentar el ingreso mensual.',
+      },
+      institutions: {
+        international: 'Escuelas Internacionales',
+        universities: 'Universidades',
+        private: 'Escuelas Privadas',
+        public: 'Escuelas Públicas/Gobierno',
+        language: 'Escuelas de Idiomas Privadas',
+      },
     },
 
     common: {

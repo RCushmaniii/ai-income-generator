@@ -1,3 +1,10 @@
+---
+title: Design System & UI Spec
+description: Visual system and UI guidelines for CushLabs Income Planner.
+category: Design
+order: 2
+---
+
 # CushLabs.ai — Design & Technical Specification
 
 A comprehensive design document covering branding, visual system, language implementation, and JavaScript functionality.
@@ -126,217 +133,31 @@ All sizes use `clamp()` for smooth scaling between mobile (320px) and desktop (1
 
 ---
 
-## 5. Language System
+## 5. Current App Implementation Notes
 
-### Supported Languages
+### Language (EN/ES)
 
-| Code | Language          | Flag Placeholder |
-| ---- | ----------------- | ---------------- |
-| `en` | English           | EN               |
-| `es` | Spanish (Español) | ES               |
+- UI strings are sourced from `lib/i18n/translations.ts`.
+- Components use `useTranslation(language)`.
+- Language is persisted in the Zustand store (`lib/store.ts`).
 
-### Implementation Architecture
+### Theme (Light/Dark)
 
-The language system uses a CSS-first approach with JavaScript for switching:
-
-**HTML Structure:**
-
-```html
-<!-- Bilingual content uses data-lang attributes -->
-<span data-lang="en">English text</span>
-<span data-lang="es">Texto en español</span>
-```
-
-**CSS Display Logic:**
-
-```css
-/* Default: English visible, Spanish hidden */
-[data-lang="es"] {
-  display: none;
-}
-
-/* When html lang="es": flip visibility */
-html[lang="es"] [data-lang="en"] {
-  display: none;
-}
-html[lang="es"] [data-lang="es"] {
-  display: block;
-}
-
-/* Handle inline elements */
-span[data-lang="es"] {
-  display: none;
-}
-html[lang="es"] span[data-lang="en"] {
-  display: none;
-}
-html[lang="es"] span[data-lang="es"] {
-  display: inline;
-}
-```
-
-### Language Detection Logic
-
-**Priority Order:**
-
-1. Saved preference in `localStorage` (key: `cushlabs-lang`)
-2. Browser language via `navigator.language`
-3. Fallback: English
-
-**Detection Algorithm:**
-
-```javascript
-function detectLanguage() {
-  let lang = "en"; // Default fallback
-
-  try {
-    // 1. Check localStorage for saved preference
-    const saved = localStorage.getItem("cushlabs-lang");
-    if (saved === "en" || saved === "es") {
-      lang = saved;
-    } else {
-      // 2. Check browser language
-      const browserLang = navigator.language || navigator.userLanguage || "en";
-      if (browserLang.toLowerCase().startsWith("es")) {
-        lang = "es";
-      }
-    }
-  } catch (e) {
-    // localStorage blocked (private browsing)
-    const browserLang = navigator.language || navigator.userLanguage || "en";
-    if (browserLang.toLowerCase().startsWith("es")) {
-      lang = "es";
-    }
-  }
-
-  return lang;
-}
-```
-
-### Browser Language Examples
-
-| Browser Setting     | `navigator.language` | Detected           |
-| ------------------- | -------------------- | ------------------ |
-| English (US)        | `en-US`              | English            |
-| English (UK)        | `en-GB`              | English            |
-| Spanish (Mexico)    | `es-MX`              | Spanish            |
-| Spanish (Spain)     | `es-ES`              | Spanish            |
-| Spanish (Argentina) | `es-AR`              | Spanish            |
-| French              | `fr-FR`              | English (fallback) |
-| German              | `de-DE`              | English (fallback) |
-
-### Language Persistence
-
-When a user manually switches language:
-
-1. `localStorage.setItem('cushlabs-lang', lang)` saves preference
-2. Subsequent visits load saved preference before browser detection
-3. Works across sessions until cleared
-
-**Privacy Consideration:** Uses try/catch for localStorage to handle private browsing modes where storage is blocked.
+- Theme tokens are implemented via CSS variables in `app/globals.css`.
+- Tailwind color tokens resolve to CSS variables (`tailwind.config.js`).
+- Theme defaults to system preference when no persisted theme exists, and persists via Zustand.
 
 ---
 
-## 6. JavaScript Functionality
+## 6. JavaScript / Interaction Notes
 
-### Overview
+- This project is implemented as a Next.js (App Router) application.
+- Client-side interactivity is handled within React components.
 
-All JavaScript is vanilla ES6+, embedded in the HTML file. No external dependencies.
+### Notes
 
-### Module Breakdown
-
-#### 1. Language Switcher
-
-**Purpose:** Detect browser language, allow manual switching, persist preference.
-
-```javascript
-// Key functions:
-setLanguage(lang); // Sets html[lang], updates UI, saves to localStorage
-detectLanguage(); // Auto-detects on page load
-
-// Event binding:
-langBtns.forEach((btn) => {
-  btn.addEventListener("click", () => setLanguage(btn.dataset.langSwitch));
-});
-```
-
-#### 2. Countdown Timer
-
-**Purpose:** Display live countdown to launch date.
-
-```javascript
-// Configuration
-const LAUNCH_DAYS = 35;
-const launchDate = new Date();
-launchDate.setDate(launchDate.getDate() + LAUNCH_DAYS);
-
-// Update function (runs every 1000ms)
-function updateCountdown() {
-  const distance = launchDate.getTime() - Date.now();
-  // Calculate days, hours, minutes, seconds
-  // Update DOM elements with padded values
-}
-
-setInterval(updateCountdown, 1000);
-```
-
-#### 3. Spotlight Effect (Desktop Only)
-
-**Purpose:** Cursor-following orange glow effect.
-
-```javascript
-// Only activates on devices with fine pointer (mouse)
-if (window.matchMedia("(pointer: fine)").matches) {
-  // Track mouse position
-  // Use lerp() for smooth interpolation
-  // Animate with requestAnimationFrame
-}
-```
-
-**Performance Notes:**
-
-- Uses `will-change: transform` for GPU acceleration
-- Lerp factor of 0.08 for smooth, non-jarring movement
-- Cancels animation frame on mouse leave
-
-#### 4. Scroll Animations
-
-**Purpose:** Fade-in elements as they enter viewport.
-
-```javascript
-const observer = new IntersectionObserver(callback, {
-  root: null,
-  rootMargin: "0px 0px -10% 0px", // Trigger slightly before fully visible
-  threshold: 0.1,
-});
-
-// Adds 'visible' class which triggers CSS transition
-```
-
-**Stagger Effect:** Feature cards have CSS `transition-delay` for sequential reveal.
-
-#### 5. Parallax Effect
-
-**Purpose:** Subtle depth on background orbs during scroll.
-
-```javascript
-// Passive listener for performance
-window.addEventListener("scroll", handler, { passive: true });
-
-// Uses requestAnimationFrame to batch updates
-// Transform: translateY at 0.15× scroll speed
-```
-
-### Performance Optimizations
-
-| Technique             | Implementation                                |
-| --------------------- | --------------------------------------------- |
-| Passive Listeners     | `{ passive: true }` on scroll events          |
-| RAF Batching          | All animations use `requestAnimationFrame`    |
-| Intersection Observer | Lazy triggers for scroll animations           |
-| Device Detection      | Spotlight disabled on touch devices           |
-| CSS Will-Change       | Applied to animated elements                  |
-| Reduced Motion        | Respects `prefers-reduced-motion` media query |
+- Any animation/interaction patterns should be implemented as React components.
+- Prefer small, composable UI pieces and keep business logic outside UI components.
 
 ---
 
@@ -612,20 +433,14 @@ Sitemap: https://cushlabs.ai/sitemap.xml
 
 ---
 
-## 11. File Manifest
+## 11. Documentation Files
 
-| File                  | Size  | Purpose                            |
-| --------------------- | ----- | ---------------------------------- |
-| `index.html`          | ~45KB | Complete landing page              |
-| `robots.txt`          | ~150B | Search engine directives           |
-| `sitemap.xml`         | ~600B | XML sitemap with hreflang          |
-| `README.md`           | ~6KB  | Setup and deployment guide         |
-| `DESIGN.md`           | ~20KB | Technical design document          |
-| `BRAND.md`            | ~12KB | Brand strategy, voice & copy guide |
-| `images/flag-en.png`  | TBD   | English flag icon (optional)       |
-| `images/flag-es.png`  | TBD   | Spanish flag icon (optional)       |
-| `images/og-image.jpg` | TBD   | Social sharing image (required)    |
-| `images/logo.png`     | TBD   | Logo for structured data           |
+- `README.md` (root) — Setup and overview
+- `PRD.md` (root) — Product requirements
+- `docs/brand.md` — Brand strategy
+- `docs/design.md` — Design system
+- `docs/future-features.md` — Roadmap
+- `docs/PREDEPLOY_AUDIT.md` — Deployment checklist
 
 ---
 

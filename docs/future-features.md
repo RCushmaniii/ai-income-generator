@@ -1,3 +1,10 @@
+---
+title: Future Features & Roadmap
+description: Planned enhancements and roadmap for CushLabs Income Planner.
+category: Roadmap
+order: 20
+---
+
 # Future Features & Roadmap
 
 **Last Updated:** December 11, 2025  

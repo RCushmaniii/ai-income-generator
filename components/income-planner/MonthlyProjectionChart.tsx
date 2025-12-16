@@ -2,21 +2,24 @@
 
 import { useIncomePlannerStore } from '@/lib/store'
 import { useTranslation } from '@/lib/i18n/translations'
-import { generateMonthlyProjection, generateSeasonalProjection } from '@/lib/chartData'
+import { generateSeasonalProjection } from '@/lib/chartData'
+import { formatCurrency } from '@/lib/formatters'
 import {
   LineChart,
   Line,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ReferenceLine,
 } from 'recharts'
 import { useState } from 'react'
 
 export default function MonthlyProjectionChart() {
-  const { scenarios, taxRate, currency, language } = useIncomePlannerStore()
+  const { scenarios, taxRate, targetAnnualNet, currency, language } = useIncomePlannerStore()
   const t = useTranslation(language)
   const [seasonalPattern, setSeasonalPattern] = useState<'steady' | 'q4-heavy' | 'summer-slow'>('steady')
 
@@ -27,24 +30,38 @@ export default function MonthlyProjectionChart() {
     seasonalPattern
   )
 
-  if (data.length === 0) {
+  const dataWithRange = data.map((d) => ({
+    ...d,
+    rangeBand: Math.max(0, d.optimistic - d.pessimistic),
+  }))
+
+  if (dataWithRange.length === 0) {
     return (
       <div className="bg-background border border-muted-strong/20 rounded-xl p-6 text-center text-muted">
-        Unable to generate chart data. Please check your inputs.
+        {t.errors.unableToGenerateChartData}
       </div>
     )
   }
 
-  const formatCurrency = (value: number): string => {
-    return new Intl.NumberFormat('es-MX', {
-      style: 'currency',
-      currency: currency,
-      minimumFractionDigits: 0,
+  const formatMoneyCompact = (value: number): string => {
+    return formatCurrency({
+      value,
+      currency,
+      language,
+      compact: true,
       maximumFractionDigits: 0,
-      notation: 'compact',
-      compactDisplay: 'short',
-    }).format(value)
+      minimumFractionDigits: 0,
+    })
   }
+
+  const formatMoney = (value: number): string => {
+    return formatCurrency({ value, currency, language, maximumFractionDigits: 0, minimumFractionDigits: 0 })
+  }
+
+  const targetMonthly =
+    typeof targetAnnualNet === 'number' && Number.isFinite(targetAnnualNet) && targetAnnualNet > 0
+      ? targetAnnualNet / 12
+      : null
 
   return (
     <div className="bg-background border border-muted-strong/20 rounded-xl p-8">
@@ -92,60 +109,104 @@ export default function MonthlyProjectionChart() {
       <div className="w-full h-80">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            data={data}
+            data={dataWithRange}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#2A2A2A" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--muted-strong)" opacity={0.25} />
             <XAxis
               dataKey="month"
-              stroke="#888888"
+              stroke="var(--muted-strong)"
               style={{ fontSize: '12px' }}
             />
             <YAxis
-              stroke="#888888"
+              stroke="var(--muted-strong)"
               style={{ fontSize: '12px' }}
-              tickFormatter={formatCurrency}
+              tickFormatter={formatMoneyCompact}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#0A0A0A',
-                border: '1px solid #2A2A2A',
+                backgroundColor: 'var(--background)',
+                border: '1px solid var(--muted-strong)',
                 borderRadius: '8px',
-                color: '#FFFFFF',
+                color: 'var(--foreground)',
               }}
-              formatter={(value: number) => formatCurrency(value)}
-              labelStyle={{ color: '#AAAAAA' }}
+              formatter={(value, name) => {
+                const n = typeof value === 'number' && Number.isFinite(value) ? value : 0
+
+                if (name === 'rangeBand') {
+                  return [formatMoney(n), t.chartLegend.rangeBand]
+                }
+                if (name === 'pessimistic') {
+                  return [formatMoney(n), t.chartLegend.pessimistic]
+                }
+                if (name === 'realistic') {
+                  return [formatMoney(n), t.chartLegend.realistic]
+                }
+                if (name === 'optimistic') {
+                  return [formatMoney(n), t.chartLegend.optimistic]
+                }
+                return [formatMoney(n), name]
+              }}
+              labelStyle={{ color: 'var(--muted)' }}
             />
             <Legend
               wrapperStyle={{ paddingTop: '20px' }}
               iconType="line"
             />
-            <Line
+
+            <Area
               type="monotone"
               dataKey="pessimistic"
-              stroke="#ef4444"
-              strokeWidth={2}
-              dot={{ fill: '#ef4444', r: 3 }}
-              activeDot={{ r: 5 }}
-              name="Pessimistic"
+              stackId="range"
+              stroke="transparent"
+              fill="transparent"
+              activeDot={false}
+              name={t.chartLegend.pessimistic}
             />
+            <Area
+              type="monotone"
+              dataKey="rangeBand"
+              stackId="range"
+              stroke="transparent"
+              fill="var(--accent)"
+              fillOpacity={0.12}
+              activeDot={false}
+              name={t.chartLegend.rangeBand}
+            />
+
+            {typeof targetMonthly === 'number' && (
+              <ReferenceLine
+                y={targetMonthly}
+                stroke="var(--accent)"
+                strokeDasharray="6 6"
+                strokeWidth={2}
+                ifOverflow="extendDomain"
+                label={{
+                  value: t.chartLegend.target,
+                  position: 'insideTopRight',
+                  fill: 'var(--accent)',
+                  fontSize: 12,
+                }}
+              />
+            )}
+
             <Line
               type="monotone"
               dataKey="realistic"
-              stroke="#3b82f6"
+              stroke="var(--chart-realistic)"
               strokeWidth={2}
-              dot={{ fill: '#3b82f6', r: 3 }}
+              dot={{ fill: 'var(--chart-realistic)', r: 3 }}
               activeDot={{ r: 5 }}
-              name="Realistic"
+              name={t.chartLegend.realistic}
             />
             <Line
               type="monotone"
               dataKey="optimistic"
-              stroke="#22c55e"
+              stroke="var(--chart-optimistic)"
               strokeWidth={2}
-              dot={{ fill: '#22c55e', r: 3 }}
+              dot={{ fill: 'var(--chart-optimistic)', r: 3 }}
               activeDot={{ r: 5 }}
-              name="Optimistic"
+              name={t.chartLegend.optimistic}
             />
           </LineChart>
         </ResponsiveContainer>

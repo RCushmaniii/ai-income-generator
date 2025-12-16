@@ -1,10 +1,6 @@
 ---
 trigger: always_on
 ---
+See .windsurf/rules/BASE-RULES.md.
 
-- Use **Tailwind utility classes** for all styling.
-- Use **custom components** for flexible design patterns.
-- Use **Lucide-React** for all icons.
-- Extend or customize styles via **Tailwind config**, not ad-hoc CSS files.
-- Avoid raw CSS, SCSS, or CSS-in-JS unless explicitly required.
-- Ensure custom components follow Tailwind conventions for spacing, sizing, and responsiveness.
+This file is intentionally a lightweight pointer to keep a single source of truth.

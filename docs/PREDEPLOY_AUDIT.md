@@ -1,6 +1,6 @@
 ---
 title: Pre-Deploy Audit Checklist
-description: Deployment and quality checklist for CushLabs Income Planner.
+description: Deployment and quality checklist for Freelance Income Planner.
 category: Operations
 order: 10
 ---
@@ -8,7 +8,7 @@ order: 10
 # Pre-Deploy Audit Checklist
 
 **Last Updated:** December 18, 2025  
-**Project:** CushLabs Income Planner  
+**Project:** Freelance Income Planner  
 **Version:** 1.4.0
 
 ---

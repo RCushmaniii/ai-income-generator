@@ -62,8 +62,8 @@
 
 ## 🔗 Quick Links
 
-- **Live Site:** [ai-income-planner.vercel.app](https://ai-income-planner.vercel.app/) _(if deployed)_
-- **Repository:** [GitHub](https://github.com/RCushmaniii/ai-income-planner)
+- **Live Site:** [freelance-income-planner.vercel.app](https://freelance-income-planner.vercel.app/) _(if deployed)_
+- **Repository:** [GitHub](https://github.com/RCushmaniii/freelance-income-planner)
 - **License:** [MIT License](../LICENSE)
 
 ---
@@ -79,5 +79,5 @@ All documentation files in this directory follow these conventions:
 
 ---
 
-**Last Updated:** January 5, 2026  
+**Last Updated:** January 6, 2026  
 **Documentation Version:** 1.0.0

@@ -18,7 +18,7 @@ const sourceSerif = Source_Serif_4({
 })
 
 export const metadata: Metadata = {
-  title: 'CushLabs Income Planner',
+  title: 'Freelance Income Planner',
   description: 'Plan your income like a pro. Adjust your rate, hours, and taxes to see what you can realistically earn per year.',
   keywords: ['income planner', 'freelance calculator', 'hourly rate calculator', 'tax calculator'],
 }

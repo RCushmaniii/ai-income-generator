@@ -34,9 +34,9 @@ portfolio_last_reviewed: "2026-01-05" # YYYY-MM-DD
 
 # === IDENTITY (CARD) ===
 
-title: "CushLabs Income Planner" # Max 80 chars
+title: "Freelance Income Planner" # Max 80 chars
 tagline: "Bilingual income planning tool for freelancers demonstrating client-side architecture and type-safe calculations." # Max 140 chars
-slug: "ai-income-planner" # lowercase, hyphens only (unique)
+slug: "freelance-income-planner" # lowercase, hyphens only (unique)
 
 # === CLASSIFICATION (FILTERS) ===
 
@@ -54,19 +54,19 @@ tags: # Exactly 3–10 tags (recommend 5–7)
 
 # === VISUALS ===
 
-thumbnail_url: "https://ai-income-planner.vercel.app/images/screenshot-snapshot.jpg" # Required, 16:9, clean UI shot
+thumbnail_url: "https://freelance-income-planner.vercel.app/images/screenshot-snapshot.jpg" # Required, 16:9, clean UI shot
 hero_image_urls: # Required, 3–6 external URLs
 
-- "https://ai-income-planner.vercel.app/images/screenshot-snapshot.jpg"
-- "https://ai-income-planner.vercel.app/images/screenshot-forecast.jpg"
-- "https://ai-income-planner.vercel.app/images/screenshot-docs.jpg"
+- "https://freelance-income-planner.vercel.app/images/screenshot-snapshot.jpg"
+- "https://freelance-income-planner.vercel.app/images/screenshot-forecast.jpg"
+- "https://freelance-income-planner.vercel.app/images/screenshot-docs.jpg"
 
 demo_video_url: "" # Required (can be empty string)
 
 # === LINKS ===
 
-demo_url: "https://ai-income-planner.vercel.app/" # Required production demo link
-repo_url: "https://github.com/RCushmaniii/ai-income-planner"
+demo_url: "https://freelance-income-planner.vercel.app/" # Required production demo link
+repo_url: "https://github.com/RCushmaniii/freelance-income-planner"
 case_study_url: "" # Required (can be empty string)
 
 # === SALES CONTENT (REQUIRED SECTIONS) ===
@@ -105,7 +105,7 @@ primary_features: # Required: 3–6 bullets (capabilities)
 
 proof: # Required: exactly 0–3 bullets (leave [] if none)
 
-- "Deployed to production at ai-income-planner.vercel.app with zero server costs"
+- "Deployed to production at freelance-income-planner.vercel.app with zero server costs"
 - "Documentation system renders 11 markdown files with responsive navigation"
 - "State persistence works across sessions with no data loss"
 

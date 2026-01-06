@@ -5,7 +5,7 @@
 
 ---
 
-## Lessons Learned — CushLabs Income Planner
+## Lessons Learned — Freelance Income Planner
 
 **Project Timeline:** Initial Development → Documentation Viewer Implementation  
 **Documentation Date:** January 5, 2026

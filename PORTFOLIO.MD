@@ -1,6 +1,6 @@
 ---
 # =============================================================================
-# PORTFOLIO.md — AI Income Planner
+# PORTFOLIO.md — Freelance Income Planner
 # =============================================================================
 
 portfolio_enabled: true
@@ -8,9 +8,9 @@ portfolio_priority: 5
 portfolio_featured: false
 portfolio_last_reviewed: '2026-01-04'
 
-title: 'AI Income Planner'
+title: 'Freelance Income Planner'
 tagline: 'Bilingual income planning tool for freelancers and consultants'
-slug: 'ai-income-planner'
+slug: 'freelance-income-planner'
 
 category: 'Web Application'
 target_audience: 'Freelancers, consultants, and independent professionals'
@@ -53,7 +53,7 @@ complexity: 'MVP'
 
 ## Overview
 
-AI Income Planner is a beautiful, bilingual income planning tool designed for freelancers and consultants. It provides real-time income calculations, multi-scenario forecasting, and interactive visualizations to help independent professionals make informed business decisions.
+Freelance Income Planner is a beautiful, bilingual income planning tool designed for freelancers and consultants. It provides real-time income calculations, multi-scenario forecasting, and interactive visualizations to help independent professionals make informed business decisions.
 
 Built with Next.js 14 App Router, TypeScript, and modern web technologies, it demonstrates professional-grade architecture, design system discipline, and attention to user experience.
 
@@ -71,7 +71,7 @@ These issues lead to poor financial planning and missed opportunities.
 
 ## The Solution
 
-AI Income Planner provides comprehensive income planning tools:
+Freelance Income Planner provides comprehensive income planning tools:
 
 **Snapshot Mode:**
 

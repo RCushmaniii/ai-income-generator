@@ -16,7 +16,7 @@ export default function DocsPage() {
             <h1 className="font-heading text-4xl font-bold">Documentation</h1>
           </div>
           <p className="text-lg text-muted max-w-2xl">
-            Complete documentation for the CushLabs Income Planner, including product requirements, 
+            Complete documentation for the Freelance Income Planner, including product requirements, 
             design specifications, and deployment guides.
           </p>
         </div>

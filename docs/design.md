@@ -1,6 +1,6 @@
 ---
 title: Design System & UI Spec
-description: Visual system and UI guidelines for CushLabs Income Planner.
+description: Visual system and UI guidelines for Freelance Income Planner.
 category: Design
 order: 2
 ---

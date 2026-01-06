@@ -7,7 +7,7 @@
 
 ## 1. Project Identity
 
-**Name:** CushLabs Income Planner
+**Name:** Freelance Income Planner
 **Context:** A bilingual (EN/ES) income planning tool for freelancers and consultants.
 **Core Philosophy:** Privacy-first, client-side calculations. Beautiful UI with instant feedback. No accounts, no backend required.
 

@@ -24,14 +24,14 @@ export default function IncomePlannerPage() {
               variant={viewMode === 'snapshot' ? 'primary' : 'ghost'}
               className="px-6 py-2"
             >
-              {t.viewMode?.snapshot || 'Snapshot'}
+              {t.viewToggle.snapshot}
             </Button>
             <Button
               onClick={() => setViewMode('forecast')}
               variant={viewMode === 'forecast' ? 'primary' : 'ghost'}
               className="px-6 py-2"
             >
-              {t.viewMode?.forecast || 'Forecast'}
+              {t.viewToggle.forecast}
             </Button>
           </div>
         </div>

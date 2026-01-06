@@ -1,28 +1,42 @@
 ---
-title: CushLabs Income Planner
+title: Freelance Income Planner
 description: A bilingual income planning tool for freelancers and consultants.
 order: 0
 ---
 
-# CushLabs Income Planner
+# Freelance Income Planner
 
-**A beautiful, bilingual income planning tool for freelancers and consultants.**
+**A transparent, bilingual income calculator for freelancers and consultants.**
 
 Built with Next.js, TypeScript, and Tailwind CSS by [CushLabs.ai](https://cushlabs.ai)
+
+> **Note:** Currently a deterministic calculator using pure math - no AI features yet. AI enhancements (market rate recommendations, natural language queries) are planned for Phase 2.
 
 ---
 
 ## ✨ Features
 
-- **Snapshot Mode** - Single-scenario calculator with real-time income calculations
-- **Rate Benchmark (Example)** - Snapshot includes a static example market benchmark panel (no AI calls)
-- **Forecast Mode** - Three-scenario planning (Pessimistic/Realistic/Optimistic)
-- **Monthly Projections** - Interactive charts with seasonal pattern modeling
+### Current (Phase 1 - Production Ready)
+
+- **Snapshot Calculator** - Real-time income calculations with transparent cash flow breakdown
+- **Currency Support** - USD and MXN with custom exchange rates
+- **Tax Calculations** - Simple percentage or progressive bracket modes
+- **Reality Check Stats** - Effective hourly rate, annual/weekly projections with formula tooltips
+- **Lifestyle Feasibility** - Visual indicator showing if income covers expenses with buffer
+- **What-If Scenarios** - Interactive rate adjustment showing impact on annual income
 - **Documentation Viewer** - Responsive docs with left sidebar navigation and markdown rendering
 - **Full Localization** - Complete EN/ES translation system
-- **State Persistence** - localStorage saves your scenarios automatically
+- **State Persistence** - localStorage saves your inputs automatically
 - **Theme Switching** - Global light/dark theme with system preference default
-- **Responsive Design** - Works beautifully on mobile and desktop
+- **Responsive Design** - Mobile-first, works beautifully on all screen sizes
+
+### Coming Soon (Phase 2 - Planned)
+
+- **Market Rate Recommendations** - AI-powered rate benchmarking against industry data
+- **Natural Language Queries** - Conversational input like "I want to earn $120k next year"
+- **Enhanced Forecast View** - Three-scenario planning with visual charts
+
+See [docs/ROADMAP.md](./docs/ROADMAP.md) for the complete development roadmap.
 
 ---
 
@@ -193,30 +207,42 @@ Translation files: `lib/i18n/translations.ts`
 
 **What's persisted:**
 
-- Hourly rate, hours/week, vacation weeks, tax rate
-- All three forecast scenarios
-- View mode (Snapshot/Forecast)
-- Currency preference (MXN/USD)
+- Hourly rate, hours/week, weeks worked per year
+- Business and personal expenses
+- Tax rate and tax mode (simple/progressive)
+- Billing and spending currencies with exchange rate
 - Language preference (EN/ES)
+- Theme preference (light/dark)
 
 ---
 
 ## 📊 Implementation Status
 
-### ✅ Completed Phases
+### ✅ Phase 1: Core Calculator (Complete)
 
-- **Phase 1:** Architecture & Setup
-- **Phase 2:** Layout & Design
-- **Phase 3:** Calculator Logic
-- **Phase 3B:** Forecasting Feature
-- **Phase 3C:** Advanced Charts
-- **Phase 4:** Localization & Persistence
+- Snapshot view with transparent cash flow calculations
+- Currency conversion (USD/MXN)
+- Tax calculations (simple & progressive)
+- Reality Check stats with formula tooltips
+- Lifestyle Feasibility indicator
+- What-If scenario planning
+- Full EN/ES localization
+- Dark/light themes
+- Responsive design
 
-### 🔄 Next Phase
+### 🚧 Phase 2: AI Features (Planned - Q2 2026)
 
-- **Phase 5:** Analytics & Monitoring (Planned)
+- Market rate recommendations
+- Natural language queries
+- Enhanced forecast view
 
-See [docs/ROADMAP.md](./docs/ROADMAP.md) for the complete roadmap.
+### 💡 Phase 3: Advanced Features (Future)
+
+- Smart forecasting with pattern recognition
+- Expense intelligence
+- Multi-currency portfolio tracking
+
+See [docs/ROADMAP.md](./docs/ROADMAP.md) for detailed roadmap.
 
 ---
 
@@ -247,7 +273,7 @@ Notes:
 
 ## 📝 License
 
-**CushLabs Income Planner Educational License v1.0**
+**Freelance Income Planner Educational License v1.0**
 
 - ✅ Personal, academic, non-commercial use
 - ✅ Modification and redistribution (with attribution)
@@ -289,6 +315,6 @@ Built with modern web technologies and best practices:
 
 ---
 
-**Last Updated:** January 5, 2026  
-**Version:** 1.1  
-**Status:** Production Ready
+**Last Updated:** January 6, 2026  
+**Version:** 1.0  
+**Status:** Phase 1 Complete - Production Ready

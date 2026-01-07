@@ -30,7 +30,7 @@ export default function Home() {
         </p>
 
         {/* CTA */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <Link
             href="/income-planner"
             className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-4 rounded-lg transition-all shadow-lg shadow-accent/20 inline-block"
@@ -42,6 +42,17 @@ export default function Home() {
             className="bg-background border border-muted-strong/30 text-foreground hover:border-accent/50 font-semibold px-8 py-4 rounded-lg transition-all inline-block"
           >
             {t.home.ctaSecondary}
+          </Link>
+        </div>
+
+        {/* Solution Brief Link */}
+        <div className="mb-16">
+          <Link
+            href="/docs/solution_brief"
+            className="text-sm text-muted hover:text-accent transition-colors inline-flex items-center gap-1"
+          >
+            <span>Read the full product brief</span>
+            <span className="text-accent">→</span>
           </Link>
         </div>
 

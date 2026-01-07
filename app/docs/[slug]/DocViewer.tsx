@@ -7,16 +7,29 @@ import remarkGfm from "remark-gfm";
 import { Menu, X, ArrowLeft } from "lucide-react";
 
 // Documentation navigation structure - slugs must match lowercase filenames
+// Ordered for optimal UX: Overview → Product → Technical → Operations → Meta
 const DOCS_NAV = [
+  // Overview
+  { title: "Getting Started", slug: "readme" },
+  { title: "Solution Brief", slug: "solution_brief" },
+  
+  // Product
+  { title: "Product Roadmap", slug: "roadmap" },
+  { title: "Design System", slug: "design" },
+  
+  // Technical
+  { title: "Currency Architecture", slug: "currency_architecture" },
   { title: "Documentation Index", slug: "index" },
-  { title: "Design", slug: "design" },
+  
+  // Operations
+  { title: "Pre-Deploy Audit", slug: "predeploy_audit" },
+  
+  // Meta / Reference
+  { title: "AI Startup Guide", slug: "ai_startup" },
+  { title: "AI Engineering Rules", slug: "ai_engineering_rules" },
+  { title: "Working with Humans", slug: "skill-working-with-humans" },
   { title: "Lessons Learned", slug: "lessons_learned" },
   { title: "Portfolio Template", slug: "portfolio_template" },
-  { title: "AI Engineering Rules", slug: "ai_engineering_rules" },
-  { title: "AI Startup", slug: "ai_startup" },
-  { title: "Working with Humans", slug: "skill-working-with-humans" },
-  { title: "Pre-Deploy Audit", slug: "predeploy_audit" },
-  { title: "Getting Started", slug: "readme" },
 ];
 
 interface DocViewerProps {

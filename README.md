@@ -14,6 +14,18 @@ order: 0
 
 ---
 
+## 📸 Screenshots
+
+### Snapshot View
+
+![Snapshot calculator showing income breakdown](.github/screenshots/app-screen-shot.jpg)
+
+### Forecast View
+
+![Forecast view with three-scenario planning and charts](.github/screenshots/forecast-view.jpg)
+
+---
+
 ## ✨ Features
 
 ### Current (Phase 1 - Production Ready v1.0.0)

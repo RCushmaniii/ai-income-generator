@@ -8,7 +8,7 @@ order: 0
 
 **A transparent, bilingual income calculator for freelancers and consultants.**
 
-🚀 **[Live Demo](https://ai-income-generator.vercel.app/)** | Built with Next.js, TypeScript, and Tailwind CSS by [CushLabs.ai](https://cushlabs.ai)
+🚀 **[Live Demo](https://freelance-income-planner.vercel.app/)** | Built with Next.js, TypeScript, and Tailwind CSS by [CushLabs.ai](https://cushlabs.ai)
 
 > **Note:** Currently a deterministic calculator using pure math - no AI features yet. AI enhancements (market rate recommendations, natural language queries) are planned for Phase 2.
 
